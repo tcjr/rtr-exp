@@ -1,7 +1,24 @@
-import loadConfigFromMeta from '@embroider/config-meta-loader';
+//import loadConfigFromMeta from '@embroider/config-meta-loader';
 import { assert } from '@ember/debug';
 
-const config = loadConfigFromMeta('rtr-exp') as unknown;
+//const config = loadConfigFromMeta('rtr-exp') as unknown;
+
+const config = {
+  modulePrefix: 'rtr-exp',
+  environment: 'development',
+  rootURL: '/',
+  locationType: 'history',
+  EmberENV: {
+    EXTEND_PROTOTYPES: false,
+    FEATURES: {},
+    _APPLICATION_TEMPLATE_WRAPPER: false,
+    _DEFAULT_ASYNC_OBSERVERS: true,
+    _JQUERY_INTEGRATION: false,
+    _NO_IMPLICIT_ROUTE_MODEL: true,
+    _TEMPLATE_ONLY_GLIMMER_COMPONENTS: true,
+  },
+  APP: {},
+};
 
 assert(
   'config is not an object',
@@ -23,6 +40,8 @@ assert(
   'APP was not detected on your config',
   'APP' in config && typeof config.APP === 'object'
 );
+
+console.log('Loaded app/config/environment:', config);
 
 export default config as {
   modulePrefix: string;
