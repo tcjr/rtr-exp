@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import type { RouterConf } from './types';
-import routerState from './state';
+import routerState, { getPathParams } from './state';
 import type Owner from '@ember/owner';
 import { getPromiseState } from 'reactiveweb/get-promise-state';
 
@@ -27,6 +27,10 @@ export class Router extends Component<RouterSignature> {
 
   get routeComponentState() {
     return getPromiseState(routerState.curUserRoute?.render);
+  }
+
+  get pathParams() {
+    return getPathParams();
   }
 
   <template>
@@ -59,7 +63,7 @@ export class Router extends Component<RouterSignature> {
         {{! component helper here? }}
         {{log "resolved.default:" this.routeComponentState.resolved.default}}
         {{#let this.routeComponentState.resolved.default as |RouteComponent|}}
-          <RouteComponent />
+          <RouteComponent @pathParams={{this.pathParams}} />
         {{/let}}
       {{/if}}
     </div>
